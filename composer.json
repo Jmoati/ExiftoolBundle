@@ -1,0 +1,31 @@
+{
+  "name": "jmoati/exiftool-bundle",
+  "authors": [
+    {
+      "name": "Jacques Moati",
+      "email": "jacques@moati.net"
+    }
+  ],
+  "license": "MIT",
+  "require": {
+    "exiftool/exiftool": "~9.0"
+  },
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "version": "9.89",
+        "name": "exiftool/exiftool",
+        "dist": {
+          "url": "http://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-9.89.tar.gz",
+          "type": "tar"
+        }
+      }
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Jmoati\\ExifToolBundle\\": ""
+    }
+  }
+}
