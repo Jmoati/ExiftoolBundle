@@ -1,17 +1,18 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b293ba344b7dc70fb46d7dfe5c25df9a",
+    "hash": "651a2e1b22642a672d1ad83f14467506",
+    "content-hash": "5a85a55483e7c4e1c338ebee04454cf4",
     "packages": [
         {
             "name": "exiftool/exiftool",
-            "version": "9.89",
+            "version": "10.14",
             "dist": {
                 "type": "tar",
-                "url": "http://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-9.89.tar.gz",
+                "url": "http://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-10.14.tar.gz",
                 "reference": null,
                 "shasum": null
             },

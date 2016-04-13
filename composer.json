@@ -8,16 +8,16 @@
   ],
   "license": "MIT",
   "require": {
-    "exiftool/exiftool": "~10.0"
+    "exiftool/exiftool": "~10.14"
   },
   "repositories": [
     {
       "type": "package",
       "package": {
-        "version": "10.00",
+        "version": "10.14",
         "name": "exiftool/exiftool",
         "dist": {
-          "url": "http://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-10.00.tar.gz",
+          "url": "http://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-10.14.tar.gz",
           "type": "tar"
         }
       }
@@ -27,5 +27,8 @@
     "psr-4": {
       "Jmoati\\ExifToolBundle\\": ""
     }
+  },
+  "config": {
+    "secure-http": false
   }
 }
