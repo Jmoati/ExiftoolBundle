@@ -16,7 +16,7 @@ class ExifToolService
      */
     public function __construct(string $rootDir)
     {
-        $this->exiftoolFile = realpath($rootDir.'/../vendor/exiftool/exiftool/exiftool');
+        $this->exiftoolFile = realpath($rootDir.'/../vendor/jmoati/exiftool-bin/exiftool');
     }
 
     /**

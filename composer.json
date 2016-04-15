@@ -8,27 +8,11 @@
   ],
   "license": "MIT",
   "require": {
-    "exiftool/exiftool": "~10.14"
+    "jmoati/exiftool-bin": "~10.14"
   },
-  "repositories": [
-    {
-      "type": "package",
-      "package": {
-        "version": "10.14",
-        "name": "exiftool/exiftool",
-        "dist": {
-          "url": "http://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-10.14.tar.gz",
-          "type": "tar"
-        }
-      }
-    }
-  ],
   "autoload": {
     "psr-4": {
       "Jmoati\\ExifToolBundle\\": ""
     }
-  },
-  "config": {
-    "secure-http": false
   }
 }
