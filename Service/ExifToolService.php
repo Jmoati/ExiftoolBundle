@@ -52,18 +52,20 @@ class ExifToolService
         $date = null;
 
         foreach ($exif as $data) {
-            if (isset($data['CreateDate'])) {
-                try {
-                    $date = new \DateTime($data['CreateDate']);
-                    $string = $date->format('Y-m-d H:i:s');
+            foreach(array('CreateDate', 'DateCreated') as $key){
+                if (isset($data[$key])) {
+                    try {
+                        $date = new \DateTime($data[$key]);
+                        $string = $date->format('Y-m-d H:i:s');
 
-                    if (preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2}$/', $string)) {
-                        break;
-                    } else {
+                        if (preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2}$/', $string)) {
+                            break;
+                        } else {
+                            $date = null;
+                        }
+                    } catch (\Exception $e) {
                         $date = null;
                     }
-                } catch (\Exception $e) {
-                    $date = null;
                 }
             }
         }
