@@ -68,6 +68,6 @@ class ExifToolService
             }
         }
 
-        return $data;
+        return $date;
     }
 }
