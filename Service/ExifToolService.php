@@ -47,7 +47,7 @@ class ExifToolService
      *
      * @return \DateTime|null
      */
-    public function getDate(array $exif)
+    static public function getDate(array $exif)
     {
         $date = null;
 
@@ -59,7 +59,7 @@ class ExifToolService
                         $string = $date->format('Y-m-d H:i:s');
 
                         if (preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2}$/', $string)) {
-                            break;
+                            break(2);
                         } else {
                             $date = null;
                         }
