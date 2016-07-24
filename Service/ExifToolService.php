@@ -52,7 +52,7 @@ class ExifToolService
         $date = null;
 
         foreach ($exif as $data) {
-            foreach(array('CreateDate', 'DateCreated') as $key){
+            foreach(array('CreationDate', 'CreateDate', 'DateCreated') as $key){
                 if (isset($data[$key])) {
                     try {
                         $date = new \DateTime($data[$key]);
