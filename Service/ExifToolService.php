@@ -26,7 +26,7 @@ class ExifToolService
      */
     public function file(string $filename) : array
     {
-        $process = new Process(sprintf('perl %s -charset UTF-8 -g -j -fast -q "%s"', $this->exiftoolFile, $filename));
+        $process = new Process(sprintf('perl %s -charset UTF-8 -g -j -c "%.6f" -fast -q "%s"', $this->exiftoolFile, $filename));
         $process->run();
 
         $data = current(json_decode($process->getOutput(), true));
