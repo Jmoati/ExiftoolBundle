@@ -3,6 +3,7 @@
 namespace Jmoati\ExifToolBundle\Service;
 
 use Symfony\Component\Process\Process;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class ExifToolService
 {
@@ -33,6 +34,7 @@ class ExifToolService
 
         unset($data['SourceFile']);
         unset($data['ExifTool']);
+        unset($data['File']['FileName']);
         unset($data['File']['FilePermissions']);
         unset($data['File']['Directory']);
         unset($data['File']['FileModifyDate']);
@@ -55,11 +57,16 @@ class ExifToolService
             foreach(array('CreationDate', 'CreateDate', 'DateCreated') as $key){
                 if (isset($data[$key])) {
                     try {
+                        $now = new \DateTime();
                         $date = new \DateTime($data[$key]);
                         $string = $date->format('Y-m-d H:i:s');
 
                         if (preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2}$/', $string)) {
-                            break(2);
+                            if ($string == $now->format('Y-m-d H:i:s')) {
+                                $date = null;
+                            } else {
+                                break(2);
+                            }
                         } else {
                             $date = null;
                         }
