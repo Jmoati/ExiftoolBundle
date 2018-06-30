@@ -9,15 +9,11 @@ use Symfony\Component\Process\Process;
 
 class ExifTool
 {
-    /** @var string */
     protected $exiftoolFile;
 
-    /**
-     * @throws \Exception
-     */
     public function __construct()
     {
-        $binary = realpath(__DIR__.'/../../../bin/exiftool');
+        $binary = realpath(__DIR__.'/../../exiftool-bin/exiftool');
 
         if (false === $binary) {
             $process = new Process('which -h');
@@ -39,33 +35,16 @@ class ExifTool
         $this->exiftoolFile = $binary;
     }
 
-    /**
-     * @return ExifTool
-     */
     public static function create(): self
     {
         return new static();
     }
 
-    /**
-     * @param string $filename
-     *
-     * @throws \Exception
-     *
-     * @return Media|null
-     */
     public static function openFile(string $filename): ?Media
     {
         return self::create()->media($filename);
     }
 
-    /**
-     * @param string $filename
-     *
-     * @throws \Exception
-     *
-     * @return Media|null
-     */
     public function media(string $filename): ?Media
     {
         $process = new Process(sprintf('perl %s -charset UTF-8 -g -j -c "%%+.6f" -fast -q "%s"', $this->exiftoolFile, $filename));
@@ -82,5 +61,19 @@ class ExifTool
         }
 
         return Media::create($data[0]);
+    }
+
+    public function mimetype(string $filename): string
+    {
+        $process = new Process(sprintf('perl %s -charset UTF-8 -j -fast -File:MIMEType -q "%s"', $this->exiftoolFile, $filename));
+        $process->run();
+
+        $data = json_decode($process->getOutput(), true);
+
+        if (!is_array($data) || 0 === count($data)) {
+            return null;
+        }
+
+        return $data[0]['MIMEType'];
     }
 }
