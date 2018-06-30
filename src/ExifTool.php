@@ -63,7 +63,7 @@ class ExifTool
         return Media::create($data[0]);
     }
 
-    public function mimetype(string $filename): string
+    public function mimetype(string $filename): ?string
     {
         $process = new Process(sprintf('perl %s -charset UTF-8 -j -fast -File:MIMEType -q "%s"', $this->exiftoolFile, $filename));
         $process->run();
