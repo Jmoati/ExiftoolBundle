@@ -70,8 +70,8 @@ class ExifTool
 
         $data = json_decode($process->getOutput(), true);
 
-        if (!is_array($data) || 0 === count($data)) {
-            return null;
+        if (!is_array($data) || 0 === count($data) || !array_key_exists('MIMEType', $data[0])) {
+            return 'application/octet-stream';
         }
 
         return $data[0]['MIMEType'];
