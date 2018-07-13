@@ -117,7 +117,7 @@ class Media
         }
 
         if (null === $this->gps) {
-            dd($this->data);
+            return null;
         }
 
         return $this->gps;
