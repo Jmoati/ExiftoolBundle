@@ -14,6 +14,9 @@ class Media
     /** @var DateTime|null */
     private $date;
 
+    /** @var Array|null */
+    private $gps;
+
     /**
      * @param array $data
      */
@@ -78,5 +81,45 @@ class Media
         }
 
         return $this->date;
+    }
+
+    public function getGps()
+    {
+        if (null === $this->gps) {
+            $this->gps = [];
+
+            foreach ($this->data as $data) {
+                foreach (['GPSLatitude'] as $key) {
+                    if (isset($data[$key])) {
+                        $this->gps['latitude'] = (string) $data[$key];
+                    }
+                }
+
+                foreach (['GPSLongitude'] as $key) {
+                    if (isset($data[$key])) {
+                        $this->gps['longitude'] = (string) $data[$key];
+                    }
+                }
+
+                foreach (['GPSDateTime'] as $key) {
+                    if (isset($data[$key])) {
+                        $this->gps['datetime'] = (string) $data[$key];
+                    }
+                }
+
+                foreach (['GPSAltitude'] as $key) {
+                    if (isset($data[$key])) {
+                        preg_match('([0-9]+\.?[0-9]*)', $data[$key], $value);
+                        $this->gps['altitude'] = (string) $value[0];
+                    }
+                }
+            }
+        }
+
+        if (null === $this->gps) {
+            dd($this->data);
+        }
+
+        return $this->gps;
     }
 }

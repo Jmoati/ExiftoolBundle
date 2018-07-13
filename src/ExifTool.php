@@ -6,6 +6,7 @@ namespace Jmoati\ExifTool;
 
 use Jmoati\ExifTool\Data\Media;
 use Symfony\Component\Process\Process;
+use Exception;
 
 class ExifTool
 {
@@ -16,10 +17,10 @@ class ExifTool
         $binary = realpath(__DIR__.'/../../exiftool-bin/exiftool');
 
         if (false === $binary) {
-            $process = new Process('which -h');
+            $process = new Process('which exiftool');
             $process->run();
 
-            if (0 === $process->getExitCode()) {
+            if ($process->getExitCode() < 1) {
                 $binary = $process->getOutput();
             }
         }
@@ -29,7 +30,7 @@ class ExifTool
         }
 
         if (false === $binary) {
-            throw new \Exception('exiftool can\'t be found.');
+            throw new Exception('exiftool can\'t be found.');
         }
 
         $this->exiftoolFile = $binary;
@@ -50,8 +51,8 @@ class ExifTool
         $process = new Process(sprintf('perl %s -charset UTF-8 -g -j -c "%%+.6f" -fast -q "%s"', $this->exiftoolFile, $filename));
         $process->run();
 
-        if (0 !== $process->getExitCode()) {
-            throw new \Exception($process->getExitCodeText());
+        if ($process->getExitCode() > 0) {
+            throw new Exception($process->getExitCodeText());
         }
 
         $data = json_decode($process->getOutput(), true);
