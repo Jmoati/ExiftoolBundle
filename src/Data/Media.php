@@ -116,7 +116,7 @@ class Media
             }
         }
 
-        if (null === $this->gps) {
+        if (0 === count($this->gps)) {
             return null;
         }
 
