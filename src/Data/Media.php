@@ -38,9 +38,9 @@ class Media
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function getData()
+    public function data(): array
     {
         return $this->data;
     }
@@ -48,7 +48,7 @@ class Media
     /**
      * @return DateTime|null
      */
-    public function getDate(): ?DateTime
+    public function date(): ?DateTime
     {
         if (null === $this->date) {
             $date = null;
@@ -83,7 +83,7 @@ class Media
         return $this->date;
     }
 
-    public function getGps()
+    public function gps(): ?array
     {
         if (null === $this->gps) {
             $this->gps = [];
@@ -121,5 +121,14 @@ class Media
         }
 
         return $this->gps;
+    }
+
+    public function mimeType(): string
+    {
+        if (!array_key_exists('MIMEType', $this->data['File'])) {
+            return 'application/octet-stream';
+        }
+
+        return $this->data['File']['MIMEType'];
     }
 }

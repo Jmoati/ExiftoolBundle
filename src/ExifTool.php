@@ -64,17 +64,4 @@ class ExifTool
         return Media::create($data[0]);
     }
 
-    public function mimetype(string $filename): string
-    {
-        $process = new Process(sprintf('perl %s -charset UTF-8 -j -fast -File:MIMEType -q "%s"', $this->exiftoolFile, $filename));
-        $process->run();
-
-        $data = json_decode($process->getOutput(), true);
-
-        if (!is_array($data) || 0 === count($data) || !array_key_exists('MIMEType', $data[0])) {
-            return 'application/octet-stream';
-        }
-
-        return $data[0]['MIMEType'];
-    }
 }
