@@ -51,7 +51,7 @@ class ExifTool
         $process = new Process(sprintf('perl %s -charset UTF-8 -g -j -c "%%+.6f" -fast -q "%s"', $this->exiftoolFile, $filename));
         $process->run();
 
-        if ($process->getExitCode() > 0) {
+        if ($process->getExitCode() > 0 && !$process->getOutput()) {
             throw new Exception($process->getExitCodeText());
         }
 
