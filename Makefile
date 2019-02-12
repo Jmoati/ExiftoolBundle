@@ -1,4 +1,4 @@
-SYMFONY_CONSOLE := php bin/console
+RUN := docker-compose -f docker-compose.yaml run php
 
 default: help
 
@@ -19,19 +19,19 @@ help:
 check: cs-fixer phpstan phpunit
 
 phpunit: vendor
-	php vendor/bin/phpunit
+	$(RUN) vendor/bin/phpunit
 
 phpstan: vendor
-	php vendor/bin/phpstan analyse -c phpstan.neon --level=7 src/
+	$(RUN) vendor/bin/phpstan analyse -c phpstan.neon --level=max src/
 
 cs: vendor
-	php vendor/bin/php-cs-fixer fix --dry-run --diff --verbose
+	$(RUN) vendor/bin/php-cs-fixer fix --dry-run --diff --verbose
 
 composer:
-	composer install --prefer-dist --no-progress --no-suggest
+	$(RUN) composer install --prefer-dist --no-progress --no-suggest
 
 cs-fixer: vendor
-	php vendor/bin/php-cs-fixer fix --verbose
+	$(RUN) php vendor/bin/php-cs-fixer fix --verbose
 
 install: composer
 
