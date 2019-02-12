@@ -14,7 +14,7 @@ class Media
     /** @var DateTime|null */
     private $date;
 
-    /** @var Array|null */
+    /** @var array|null */
     private $gps;
 
     /**

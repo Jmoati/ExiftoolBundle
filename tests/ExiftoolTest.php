@@ -9,13 +9,38 @@ use DateTime;
 
 class ExiftoolTest extends TestCase
 {
-    public function testOpenFile()
+    /** @test */
+    public function i_can_open_a_file()
     {
         $media = ExifTool::openFile(realpath(__DIR__.'/dist/GPS.jpg'));
         $this->assertInstanceOf(Media::class, $media);
+        $this->assertTrue(is_array($media->data()));
+    }
 
-        $this->assertInstanceOf(DateTime::class, $media->getDate());
-        $this->assertTrue(is_array($media->getData()));
-        $this->assertTrue(is_float($media->getData()['EXIF']['GPSLatitude']));
+    /** @test */
+    public function i_can_read_the_date()
+    {
+        $media = ExifTool::openFile(realpath(__DIR__.'/dist/GPS.jpg'));
+
+        $this->assertInstanceOf(DateTime::class, $media->date());
+        $this->assertEquals('2002 07 13', $media->date()->format('Y m d'));
+    }
+
+    /** @test */
+    public function i_can_read_the_location()
+    {
+        $media = ExifTool::openFile(realpath(__DIR__.'/dist/GPS.jpg'));
+
+        $this->assertIsArray($media->gps());
+
+        $this->assertIsFloat($media->data()['EXIF']['GPSLatitude']);
+        $this->assertEquals($media->data()['EXIF']['GPSLatitude'], $media->gps()['latitude']);
+    }
+
+    /** @test */
+    public function i_can_read_the_mimetype()
+    {
+        $media = ExifTool::openFile(realpath(__DIR__.'/dist/GPS.jpg'));
+        $this->assertEquals('image/jpeg', $media->mimeType());
     }
 }
