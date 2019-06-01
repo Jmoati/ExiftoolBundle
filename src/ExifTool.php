@@ -48,7 +48,7 @@ class ExifTool
 
     public function media(string $filename): ?Media
     {
-        $process = new Process(['perl', $this->exiftoolFile, '-charset', 'UTF-8', '-g', '-j', '-c', '%+.6f', '-fast', '-q', $filename]);
+        $process = new Process(['perl', $this->exiftoolFile, '-charset', 'UTF-8', '-filesize#', '-g', '-j', '-c', '%+.6f', '-fast', '-q', $filename]);
         $process->run();
 
         if ($process->getExitCode() > 0 && !$process->getOutput()) {
