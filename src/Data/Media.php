@@ -5,49 +5,40 @@ declare(strict_types=1);
 namespace Jmoati\ExifTool\Data;
 
 use DateTime;
+use Exception;
 
-class Media
+final class Media
 {
-    /** @var array */
-    private $data = [];
+    private array $data = [];
+    private ?DateTime $date = null;
+    private ?array $gps = null;
 
-    /** @var DateTime|null */
-    private $date;
-
-    /** @var array|null */
-    private $gps;
-
-    /**
-     * @param array $data
-     */
     public function __construct(array $data)
     {
-        unset($data['SourceFile'], $data['ExifTool'], $data['File']['FileName'], $data['File']['FilePermissions'], $data['File']['Directory'], $data['File']['FileModifyDate'], $data['File']['FileAccessDate'], $data['File']['FileInodeChangeDate']);
+        unset(
+            $data['SourceFile'],
+            $data['ExifTool'],
+            $data['File']['FileName'],
+            $data['File']['FilePermissions'],
+            $data['File']['Directory'],
+            $data['File']['FileModifyDate'],
+            $data['File']['FileAccessDate'],
+            $data['File']['FileInodeChangeDate']
+        );
 
         $this->data = $data;
     }
 
-    /**
-     * @param array $data
-     *
-     * @return Media
-     */
     public static function create(array $data): self
     {
         return new static($data);
     }
 
-    /**
-     * @return array
-     */
     public function data(): array
     {
         return $this->data;
     }
 
-    /**
-     * @return DateTime|null
-     */
     public function date(): ?DateTime
     {
         if (null === $this->date) {
@@ -70,7 +61,7 @@ class Media
                             } else {
                                 $date = null;
                             }
-                        } catch (\Exception $e) {
+                        } catch (Exception $e) {
                             $date = null;
                         }
                     }
