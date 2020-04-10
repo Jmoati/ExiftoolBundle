@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Jmoati\Exiftool\Tests;
 
+use DateTime;
 use Jmoati\ExifTool\Data\Media;
 use Jmoati\ExifTool\ExifTool;
 use PHPUnit\Framework\TestCase;
-use DateTime;
 
 class ExiftoolTest extends TestCase
 {
