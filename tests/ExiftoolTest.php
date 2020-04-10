@@ -18,6 +18,14 @@ class ExiftoolTest extends TestCase
     }
 
     /** @test */
+    public function i_can_open_a_https_file()
+    {
+        $media = ExifTool::openFile('https://symfony.com/images/logos/header-logo.svg');
+        $this->assertInstanceOf(Media::class, $media);
+        $this->assertTrue(is_array($media->data()));
+    }
+
+    /** @test */
     public function i_can_read_the_date()
     {
         $media = ExifTool::openFile(realpath(__DIR__.'/dist/GPS.jpg'));

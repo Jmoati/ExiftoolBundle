@@ -24,11 +24,6 @@ final class ExifTool
         $this->exiftoolFile = str_replace(PHP_EOL, '', $process->getOutput());
     }
 
-    public static function create(): self
-    {
-        return new static();
-    }
-
     public static function openFile(string $filename): ?Media
     {
         return self::create()->media($filename);
@@ -36,23 +31,17 @@ final class ExifTool
 
     public function media(string $filename): ?Media
     {
-        $process = new Process([
-            'perl',
-            $this->exiftoolFile,
-            '-charset',
-            'UTF-8',
-            '-filesize#',
-            '-all',
-            '-g',
-            '-j',
-            '-c',
-            '%+.6f',
-            '-fast',
-            '-q',
-            $filename,
-        ]);
+        switch ($this->guessScheme($filename)) {
+            case 'http':
+            case 'https':
+              $command = 'curl -s "$filename" | exiftool -charset UTF-8 -filesize# -all -c %+.6f -q -j -g -fast -';
+                break;
+            default:
+                $command = 'exiftool -charset UTF-8 -filesize# -all -c %+.6f -q -j -g -fast "$filename"';
+        }
 
-        $process->run();
+        $process = Process::fromShellCommandline($command);
+        $process->run(null, ['filename' => $filename]);
 
         if ($process->getExitCode() > 0 && !$process->getOutput()) {
             throw new Exception((string) $process->getExitCodeText());
@@ -65,5 +54,17 @@ final class ExifTool
         }
 
         return Media::create($data[0]);
+    }
+
+    public static function create(): self
+    {
+        return new static();
+    }
+
+    private function guessScheme(string $filename): string
+    {
+        $infos = parse_url($filename);
+
+        return !$infos ? 'file' : $infos['scheme'] ?? 'file';
     }
 }
