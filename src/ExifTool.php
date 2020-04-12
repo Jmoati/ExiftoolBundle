@@ -40,7 +40,7 @@ final class ExifTool
                 $command = 'exiftool -charset UTF-8 -filesize# -all -c %+.6f -q -j -g -fast "$filename"';
         }
 
-        $process = Process::fromShellCommandline($command);
+        $process = Process::fromShellCommandline($command, null, null, null, 0.0);
         $process->run(null, ['filename' => $filename]);
 
         if ($process->getExitCode() > 0 && !$process->getOutput()) {
