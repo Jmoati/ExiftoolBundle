@@ -10,7 +10,7 @@ $finder = PhpCsFixer\Finder::create()
                                ]
                            );
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
                         ->setRiskyAllowed(true)
                         ->setUsingCache(false)
                         ->setRules(
@@ -20,12 +20,10 @@ return PhpCsFixer\Config::create()
                                 '@PSR1' => true,
                                 '@PSR2' => true,
                                 'array_syntax' => ['syntax' => 'short'],
-                                'class_keyword_remove' => false,
                                 'combine_consecutive_unsets' => true,
                                 'declare_strict_types' => true,
                                 'dir_constant' => true,
                                 'ereg_to_preg' => false,
-                                'general_phpdoc_annotation_remove' => ['author', 'copyright', 'since', 'version', 'package', 'subpackage'],
                                 'header_comment' => false,
                                 'heredoc_to_nowdoc' => true,
                                 'is_null' => false,
@@ -35,20 +33,7 @@ return PhpCsFixer\Config::create()
                                 'native_function_invocation' => false,
                                 'no_alias_functions' => false,
                                 'no_blank_lines_before_namespace' => false,
-                                'no_extra_consecutive_blank_lines' => [
-                                    'break',
-                                    'continue',
-                                    'extra',
-                                    'return',
-                                    'throw',
-                                    'use',
-                                    'parenthesis_brace_block',
-                                    'square_brace_block',
-                                    'curly_brace_block'
-                                ],
-                                'no_multiline_whitespace_before_semicolons' => true,
                                 'no_php4_constructor' => true,
-                                'no_short_echo_tag' => true,
                                 'no_unreachable_default_argument_value' => true,
                                 'no_useless_else' => true,
                                 'no_useless_return' => true,
@@ -65,10 +50,8 @@ return PhpCsFixer\Config::create()
                                 'phpdoc_to_comment' => false,
                                 'pow_to_exponentiation' => true,
                                 'protected_to_private' => true,
-                                'psr4' => true,
                                 'random_api_migration' => false,
                                 'semicolon_after_instruction' => true,
-                                'silenced_deprecation_error' => false,
                                 'simplified_null_return' => false,
                                 'strict_comparison' => false,
                                 'strict_param' => true, // RISKY !

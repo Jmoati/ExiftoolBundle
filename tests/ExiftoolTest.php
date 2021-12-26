@@ -11,24 +11,21 @@ use PHPUnit\Framework\TestCase;
 
 class ExiftoolTest extends TestCase
 {
-    /** @test */
-    public function i_can_open_a_file()
+    public function testICanOpenAFile()
     {
         $media = ExifTool::openFile(realpath(__DIR__.'/dist/GPS.jpg'));
         $this->assertInstanceOf(Media::class, $media);
         $this->assertTrue(is_array($media->data()));
     }
 
-    /** @test */
-    public function i_can_open_a_https_file()
+    public function testICanOpenAHttpsFile()
     {
         $media = ExifTool::openFile('https://symfony.com/images/logos/header-logo.svg');
         $this->assertInstanceOf(Media::class, $media);
         $this->assertTrue(is_array($media->data()));
     }
 
-    /** @test */
-    public function i_can_read_the_date()
+    public function testICanReadTheDate()
     {
         $media = ExifTool::openFile(realpath(__DIR__.'/dist/GPS.jpg'));
 
@@ -36,8 +33,7 @@ class ExiftoolTest extends TestCase
         $this->assertEquals('2002 07 13', $media->date()->format('Y m d'));
     }
 
-    /** @test */
-    public function i_can_read_the_location()
+    public function testICanReadTheLocation()
     {
         $media = ExifTool::openFile(realpath(__DIR__.'/dist/GPS.jpg'));
 
@@ -47,8 +43,7 @@ class ExiftoolTest extends TestCase
         $this->assertEquals($media->data()['EXIF']['GPSLatitude'], $media->gps()['latitude']);
     }
 
-    /** @test */
-    public function i_can_read_the_mimetype()
+    public function testICanReadTheMimetype()
     {
         $media = ExifTool::openFile(realpath(__DIR__.'/dist/GPS.jpg'));
         $this->assertEquals('image/jpeg', $media->mimeType());

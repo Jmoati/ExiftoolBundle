@@ -21,7 +21,7 @@ final class ExifTool
             throw new Exception("exiftool can't be found.");
         }
 
-        $this->exiftoolFile = str_replace(PHP_EOL, '', $process->getOutput());
+        $this->exiftoolFile = str_replace(\PHP_EOL, '', $process->getOutput());
     }
 
     public static function openFile(string $filename): ?Media
@@ -34,10 +34,10 @@ final class ExifTool
         switch ($this->guessScheme($filename)) {
             case 'http':
             case 'https':
-              $command = 'curl -s "$filename" | exiftool -charset UTF-8 -filesize# -all -c %+.6f -q -j -g -fast -';
+              $command = 'curl -s "$filename" | '.$this->exiftoolFile.' -charset UTF-8 -filesize# -all -c %+.6f -q -j -g -fast -';
                 break;
             default:
-                $command = 'exiftool -charset UTF-8 -filesize# -all -c %+.6f -q -j -g -fast "$filename"';
+                $command = $this->exiftoolFile.' -charset UTF-8 -filesize# -all -c %+.6f -q -j -g -fast "$filename"';
         }
 
         $process = Process::fromShellCommandline($command, null, null, null, 0.0);
