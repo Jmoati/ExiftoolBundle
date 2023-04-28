@@ -1,4 +1,4 @@
-RUN := docker-compose -f docker-compose.yaml run --rm php
+RUN := docker compose run --rm php
 
 default: help
 
