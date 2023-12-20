@@ -32,7 +32,7 @@ return (new PhpCsFixer\Config())
                                 'modernize_types_casting' => true,
                                 'native_function_invocation' => false,
                                 'no_alias_functions' => false,
-                                'no_blank_lines_before_namespace' => false,
+                                'blank_lines_before_namespace' => false,
                                 'no_php4_constructor' => true,
                                 'no_unreachable_default_argument_value' => true,
                                 'no_useless_else' => true,

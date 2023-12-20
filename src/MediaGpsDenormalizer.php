@@ -53,9 +53,16 @@ final class MediaGpsDenormalizer implements DenormalizerInterface
         );
     }
 
-    public function supportsDenormalization(mixed $data, string $type, string $format = null): bool
+    public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
     {
         return is_array($data)
             && MediaGps::class === $type;
+    }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            MediaGps::class => true,
+        ];
     }
 }

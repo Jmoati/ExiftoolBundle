@@ -44,9 +44,16 @@ final class MediaDenormalizer implements DenormalizerInterface, DenormalizerAwar
         );
     }
 
-    public function supportsDenormalization(mixed $data, string $type, string $format = null): bool
+    public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
     {
         return is_array($data)
             && Media::class === $type;
+    }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Media::class => true,
+        ];
     }
 }
