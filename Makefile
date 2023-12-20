@@ -1,4 +1,4 @@
-RUN := docker-compose -f docker-compose.yaml run --rm php
+RUN := docker compose run --rm php
 
 default: help
 
@@ -22,7 +22,7 @@ phpunit: vendor
 	$(RUN) vendor/bin/phpunit
 
 phpstan: vendor
-	$(RUN) vendor/bin/phpstan analyse -c phpstan.neon --level=max src/
+	$(RUN) vendor/bin/phpstan analyse -c phpstan.neon --level=9 src/
 
 cs: vendor
 	$(RUN) vendor/bin/php-cs-fixer fix --dry-run --diff --verbose
